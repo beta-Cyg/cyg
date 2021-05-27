@@ -6,13 +6,12 @@
 #include<cstring>
 #include<cstdio>
 #include<algorithm>
-#include<vector>
 
 namespace cyg{
     class bign{
     private:
         long long len;
-        std::vector<char>d;
+        std::string d;
 
         void clean(){while(len>1 and not d[len-1])len--;}
     public:
@@ -20,18 +19,7 @@ namespace cyg{
 
         bign(const int num):len(){*this=num;}
 
-        bign(const char* num):len(){*this=num;}
-
         bign(const std::string num):len(){*this=num;}
-
-        bign& operator=(const char* num){
-            d.clear();
-            len=std::strlen(num);
-            d.resize(len);
-            for(int i=0;i<len;i++)d[i]=num[len-1-i]-'0';
-            clean();
-            return *this;
-        }
 
         bign& operator=(const std::string num){
             d.clear();
@@ -41,9 +29,9 @@ namespace cyg{
             return *this;
         }
 
-        bign& operator=(const int num){
+        bign& operator=(const long long num){
             char s[20];
-            std::sprintf(s,"%d",num);
+            std::sprintf(s,"%lld",num);
             *this=s;
             return *this;
         }
