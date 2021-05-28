@@ -1,9 +1,15 @@
-﻿#ifndef UNIFIND_SET_HPP
-#define UNIFIND_SET_HPP
+#ifndef _GLIBCXX_UNIFIND_SET_HPP
+#define _GLIBCXX_UNIFIND_SET_HPP 1
 
+#ifndef _GLIBCXX_VECTOR
 #include<vector>
+#endif
+#ifndef _GLIBCXX_SET
 #include<set>
+#endif
+#ifndef _GLIBCXX_UNORDERED_SET
 #include<unordered_set>
+#endif
 
 namespace cyg{
     template<typename T,typename sT=std::unordered_set<T>,typename ssT=std::vector<sT>>
@@ -59,6 +65,12 @@ namespace cyg{
                 return ufs.end()-1;
             }
         }
+
+		iterator merge(){
+			iterator result;
+			for(auto iter=ufs.begin();iter!=ufs.end();iter++)result=merge(*((iter+1)->begin()),*(iter->begin()));
+			return result;
+		}
 
         iterator find(const T nn){
             for(auto set=ufs.begin();set!=ufs.end();set++)if(set->find(nn)!=set->end())return set;
